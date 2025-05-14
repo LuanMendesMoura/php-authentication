@@ -1,27 +1,11 @@
 <?php 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_POST['nome'] === 'Usuario' )
 
-    // Pega as credenciais do form login
-    $emailForm = $_POST['email'];
-    $senhaForm = $_POST['senha'];
-    if (!empty($emailForm) && !empty($senhaForm)) {
 
-        $emailCorreto = 'adm@mail.com';
-        $senhaCorreto = '123';
-
-        // Verificar se as credenciais estao corretas
-        if ($emailForm === $emailCorreto && $senhaForm === $senhaCorreto) {
-
-            // Posso logar o usuario e salvar na sessao
-            $_SESSION['usuario'] = $emailForm;
-
-            return header('location: privado.php');
-        }
-    }
-}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,13 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Document</title>
 </head>
 <body>
-    <h1>Login: todos podem acessar </h1>
-    <form action="login.php" method="POST">
-        <label for="email">Email</label>
-        <input type="text" name="email" >
+    <h1>Login: </h1>
+    <p>
+        <a href="index.php">Home</a> --
+        <a href="login.php">Login</a> --
+        <a href="privado.php">Privado</a> --
+        <a href="logout.php">Sair</a>
+    </p>
 
-        <label for="senha"></label>
-        <input type="text" name="senha" >
+    <form action="login.php" method="POST">
+        <label for="nome">Nome</label>
+        <input type="text" name="nome">
+        <label for="senha">Senha</label>
+        <input type="text" name="senha">
 
         <button>Entrar</button>
     </form>

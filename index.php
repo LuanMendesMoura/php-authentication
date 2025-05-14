@@ -1,15 +1,6 @@
 <?php 
-// inicia a sessão ou disponibiliza a sessão atual
 session_start();
 
-// if (empty($_SESSION['contador'])) {
-//     $_SESSION['contador'] = 0;
-// }
-
-// $_SESSION['contador'] = $_SESSION['contador'] +1;
-    
-// superglobal que armazena os dados de sessão
-$usuarioLogado = $_SESSION['usuario'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +11,12 @@ $usuarioLogado = $_SESSION['usuario'] ?? null;
     <title>Document</title>
 </head>
 <body>
-    <h1>Home: todos podem acessar </h1>
+    <h1>Home: PUBLICO</h1>
     <p>
-        <a href="login.php">Login</a> |
-        <a href="private.php">Privado</a>
+        <a href="index.php">Home</a> --
+        <a href="login.php">Login</a> --
+        <a href="privado.php">Privado</a> --
+        <a href="logout.php">Sair</a>
     </p>
-    <?php if (!empty($usuarioLogado)): ?>
-        <p>Bem vindo <?= $usuarioLogado ?></p>
-    <?php endif ?>
 </body>
 </html>

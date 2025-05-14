@@ -11,7 +11,7 @@ session_start();
     <title>Document</title>
 </head>
 <body>
-    <h1>Privado: </h1>
+    <h1>Logout: </h1>
     <p>
         <a href="index.php">Home</a> --
         <a href="login.php">Login</a> --
