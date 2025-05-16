@@ -1,8 +1,46 @@
 <?php 
 session_start();
 
-if ($_POST['nome'] === 'Usuario' )
+require_once 'timer.php';
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $emailForm = $_POST['email'];
+    $senhaForm = $_POST['senha'];
+    if (!empty($emailForm) && !empty($senhaForm)) {
+        $usuarios = [
+
+            [
+                'email' => 'adm@email.com',
+                'senha' => password_hash('123',PASSWORD_BCRYPT),
+                'perfil' => 'Administrador',
+                'nome' => 'Luan',
+            ],
+            [
+                'email' => 'gerente@email.com',
+                'senha' => password_hash('123',PASSWORD_BCRYPT),
+                'perfil' => 'Gerente',
+                'nome' => 'Luan',
+            ],
+            [
+                'email' => 'funcionario@email.com',
+                'senha' => password_hash('123',PASSWORD_BCRYPT),
+                'perfil' => 'Funcionário',
+                'nome' => 'Luan',
+            ],
+        ];
+        foreach ($usuarios as $usuario) {
+            if ($usuario['email'] === $emailForm && password_verify($senhaForm, $usuario['senha'])) {
+                $_SESSION['email'] = $usuario['email'];
+                $_SESSION['perfil'] = $usuario['perfil'];
+                $_SESSION['nome'] = $usuario['nome'];
+                session_regenerate_id(true);
+
+                header ('Location: index.php');
+            }
+        }
+    }
+}
 
 ?>
 
@@ -15,17 +53,19 @@ if ($_POST['nome'] === 'Usuario' )
     <title>Document</title>
 </head>
 <body>
+    <?php if (isset($_GET['afk'])): ?>
+        <p>Foi desconectado por inatividade!</p>
+    <?php endif ?>
     <h1>Login: </h1>
     <p>
         <a href="index.php">Home</a> --
         <a href="login.php">Login</a> --
-        <a href="privado.php">Privado</a> --
         <a href="logout.php">Sair</a>
     </p>
 
     <form action="login.php" method="POST">
-        <label for="nome">Nome</label>
-        <input type="text" name="nome">
+        <label for="email">Email</label>
+        <input type="text" name="email">
         <label for="senha">Senha</label>
         <input type="text" name="senha">
 

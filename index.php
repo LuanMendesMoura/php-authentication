@@ -1,7 +1,16 @@
 <?php 
 session_start();
 
+require_once 'timer.php';
+
+$usuarioLogado = $_SESSION['email'] ?? null;
+$usuarioNome = $_SESSION['nome'] ?? null;
+$usuarioPerfil = $_SESSION['perfil'] ?? null;
 ?>
+
+<pre>
+    <?php print_r($_SESSION); ?>
+</pre>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,12 +20,18 @@ session_start();
     <title>Document</title>
 </head>
 <body>
+    <?php if (isset($_GET['afk'])): ?>
+        <p>Foi desconectado por inatividade!</p>
+    <?php endif ?>
     <h1>Home: PUBLICO</h1>
     <p>
         <a href="index.php">Home</a> --
         <a href="login.php">Login</a> --
-        <a href="privado.php">Privado</a> --
         <a href="logout.php">Sair</a>
     </p>
+    <?php if (!empty($usuarioLogado)): ?>
+        <p>Boas vindas <?= $usuarioNome ?> </p>
+        <p>Seu nivel de usuário: <?= $usuarioPerfil ?> </p>
+    <?php endif ?>
 </body>
 </html>
