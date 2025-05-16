@@ -3,7 +3,17 @@ session_start();
 
 require_once 'timer.php';
 
+$maxTentativas = 3;
+if (!isset($_SESSION['tentativas'])) {
+    $_SESSION['tentativas'] = 1;
+}
+if ($_SESSION['tentativas'] > $maxTentativas) {
+    echo "Você atingiu o número máximo de tentativas, espere 2 minutos e tente novamente!";
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $_SESSION['tentativas']++;
 
     $emailForm = $_POST['email'];
     $senhaForm = $_POST['senha'];
